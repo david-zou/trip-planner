@@ -18,25 +18,46 @@ export function List() {
 
   const dispatch = useDispatch();
   const [newIndex, setNewIndex] = useState(index);
+  const [nameInput, setNameInput] = useState('Insert name here');
+  const [latInput, setLatInput] = useState('Insert latitude here');
+  const [lngInput, setLngInput] = useState('Insert longitude here');
+  const [descriptionInput, setDescriptionInput] = useState('Insert description here');
+  const [timeRangeInput, setTimeRangeInput] = useState('Insert time range here');
 
-  const index_to_edit = Number(newIndex) || 0;
+  const index_to_edit = typeof Number(newIndex) == 'number' ? Number(newIndex) : 0;
+
+  const latLngInput = {
+    lat: Number(latInput),
+    lng: Number(lngInput),
+  }
+
+  const payload = {
+    index: index_to_edit,
+    metadata: {
+      name: nameInput,
+      latLng: latLngInput,
+      description: descriptionInput,
+      timeRange: timeRangeInput,
+    }
+  }
 
   return (
     <div> 
-      
-      {list.map(metadata => (
-        <ListItem metadata={metadata} key={metadata.uid} />
-      ))}
+      <div>
+        {list.map(metadata => (
+          <ListItem metadata={metadata} key={metadata.uid} />
+        ))}
+      </div>
 
-      {/* <div>
+      <div>
         <h1>Edit:</h1>
 
         <label>Index to change:</label>
         <input
           className={styles.textbox}
-          aria-label="Set new name"
-          value={index}
-          onChange={(e) => setNameInput(e.target.value)}
+          aria-label="Target new index"
+          value={newIndex}
+          onChange={(e) => setNewIndex(e.target.value)}
         />
 
         <label>Name:</label>
@@ -82,11 +103,11 @@ export function List() {
         <button
           className={styles.button}
           aria-label="Confirm Data Edit"
-          onClick={() => dispatch(editPlace(metadata))}
+          onClick={() => dispatch(updateOne(payload))}
         >
           Edit
         </button>
-      </div> */}
+      </div>
 
     </div>
   )
