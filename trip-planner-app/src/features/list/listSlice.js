@@ -9,13 +9,8 @@ const initialState = {
       // location name
       name: 'Chicago',
       // latitude and longitude
-      latLng: { lat: function() {
-          return 41.85;
-        },
-        lng: function() {
-          return -87.65;
-        },
-      },
+      latLng: { lat: 41.85,
+                lng: -87.65 },
       description: "Chicago, Capital City of Illinois",
       timeRange: "0:00 - 23:59",
     },
@@ -25,13 +20,8 @@ const initialState = {
       // location name
       name: 'San Francisco',
       // latitude and longitude
-      latLng: { lat: function() {
-          return 37.7749;
-        },
-        lng: function() {
-          return 122.4194;
-        },
-      },
+      latLng: { lat: 37.7749,
+                lng: 122.4194 },
       description: "San Francisco, Home of the Golden Gate Bridge",
       timeRange: "6:00 - 18:00",
     },
@@ -46,10 +36,11 @@ export const listSlice = createSlice({
     // Use the PayloadAction type to declare the contents of `action.payload`
     addOne: (state, action) => {
       // where payload is an object containing name, latlng, description, timerange metadata of a listitem
-      state.list.push(action.payload.list[action.payload.index])
+      // state.list.push(action.payload.list[action.payload.index])
+      state.list.push(action.payload.metadata)
     },
     updateOne: (state, action) => {
-      state.list.splice(action.payload.index, 1, action.payload.list[action.payload.index]);
+      state.list.splice(action.payload.index, 1, action.payload.metadata);
     },
     deleteOne: (state, action) => {
       state.list.splice(action.payload.index, 1);

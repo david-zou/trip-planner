@@ -44,8 +44,8 @@ export function ListItem(props) {
     <div className={styles.item_box}>
       <ul>
         <li>Name: {metadata.name}</li>
-        <li>Latitude: {metadata.latLng.lat()}</li>
-        <li>Longitude: {metadata.latLng.lng()}</li>
+        <li>Latitude: {metadata.latLng.lat}</li>
+        <li>Longitude: {metadata.latLng.lng}</li>
         <li>Description: {metadata.description}</li>
         <li>Time Range: {metadata.timeRange}</li>
       </ul>
