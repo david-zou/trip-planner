@@ -7,11 +7,11 @@ import {
   populateAddModal,
   showModalView,
   selectModalOperation,
+  selectModalToggle,
 } from '../listModal/listModalSlice';
 
 import {
   selectList,
-  selectIndex,
 } from './listSlice';
 
 import styles from './List.module.css';
@@ -21,6 +21,7 @@ export function List() {
   const dispatch = useDispatch();
   const list = useSelector(selectList);
   const addOperationMode = useSelector(selectModalOperation) === 'add';
+  const modalVisible = useSelector(selectModalToggle);
 
   const AddButton = () => {
     return (
@@ -46,7 +47,7 @@ export function List() {
         }
         
         {
-          addOperationMode ? 
+          (addOperationMode && modalVisible) ? 
           <div className={styles.item_box}>
             <ListModal />
           </div> : <></>

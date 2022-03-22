@@ -95,16 +95,22 @@ function ListModal(props) {
         <button
           className={styles.button}
           aria-label="Confirm Data Addition"
-          onClick={() => { dispatch(addOne(payload)) && dispatch(hideModalView()) }}
+          onClick={() => { 
+            dispatch(addOne(payload))
+            dispatch(hideModalView()) 
+          }}
         >
           Save
         </button> :
         <button
           className={styles.button}
           aria-label="Confirm Data Update"
-          onClick={() => { dispatch(updateOne(payload)) && dispatch(hideModalView()) }}
+          onClick={() => { 
+            dispatch(updateOne(payload));
+            dispatch(hideModalView());
+          }}
         >
-          Update
+          Save
         </button> }
       </div>
     </div>

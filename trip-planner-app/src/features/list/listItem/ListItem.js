@@ -18,6 +18,7 @@ export function ListItem(props) {
   const modalToggle = useSelector(selectModalToggle);
   const selectedIndex = useSelector(selectIndex);
   const updateOperationMode = useSelector(selectModalOperation) === 'update';
+  const modalVisible = useSelector(selectModalToggle);
   const metadata = props.metadata;
 
   const UpdateButton = () => {
@@ -46,7 +47,7 @@ export function ListItem(props) {
         <li>Time Range: {metadata.timeRange}</li>
       </ul>
       {
-        (modalToggle && props.id === selectedIndex && updateOperationMode) ? < ListModal metadata={metadata} id={props.id} /> : <></>
+        (modalToggle && props.id === selectedIndex && updateOperationMode && modalVisible) ? < ListModal metadata={metadata} id={props.id} /> : <></>
       }
       <UpdateButton />
     </div>

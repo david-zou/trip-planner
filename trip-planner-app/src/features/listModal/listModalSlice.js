@@ -22,12 +22,11 @@ export const listModalSlice = createSlice({
     showModalView: (state, action) => {
       state.toggle = true;
     },
-    hideModalViewl: (state) => {
-      state = {
-        index: null,
-        toggle: false,
-        operation: '',
-      }
+    hideModalView: (state) => {
+      console.log('hideModalView activated')
+      state.index = null;
+      state.toggle = false;
+      state.operation = '';
     }
   }
 });
