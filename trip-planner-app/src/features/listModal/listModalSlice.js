@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  index: null,
+  // index: null,
   toggle: false,
   operation: '',
 };
@@ -24,7 +24,7 @@ export const listModalSlice = createSlice({
     },
     hideModalView: (state) => {
       console.log('hideModalView activated')
-      state.index = null;
+      // state.index = null;
       state.toggle = false;
       state.operation = '';
     }
@@ -37,7 +37,7 @@ export const { populateAddModal, populateUpdateModal, showModalView, hideModalVi
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file.
 // export const selectName = (state) => state.listItem.name;
-export const selectModalIndex = (state) => state.listModal.index;
+// export const selectModalIndex = (state) => state.listModal.index;
 export const selectModalToggle = (state) => state.listModal.toggle;
 export const selectModalOperation = (state) => state.listModal.operation;
 

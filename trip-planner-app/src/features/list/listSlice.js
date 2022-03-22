@@ -40,12 +40,15 @@ export const listSlice = createSlice({
       state.list.push(action.payload.metadata)
     },
     updateOne: (state, action) => {
+      console.log('updateOne called with index:', action.payload.index);
       state.list.splice(action.payload.index, 1, action.payload.metadata);
     },
     deleteOne: (state, action) => {
-      state.list.splice(action.payload.index, 1);
+      console.log('deleteOne called with index:', action.payload);
+      state.list.splice(action.payload, 1);
     },
     updateIndex: (state, action) => {
+      console.log('updateIndex called with action.payload:', action.payload)
       state.index = action.payload;
     }
   }
