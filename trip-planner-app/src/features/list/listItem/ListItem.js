@@ -8,6 +8,7 @@ import {
 } from '../../listModal/listModalSlice'
 import {
   selectIndex,
+  deleteOne,
 } from '../listSlice'
 import ListModal from '../../listModal/listModal.js'
 import styles from './ListItem.module.css';
@@ -37,6 +38,20 @@ export function ListItem(props) {
     )
   }
 
+  const DeleteButton = () => {
+    const index = props.id
+    return (
+      <button
+          className={styles.button}
+          aria-label="Delete Location"
+          onClick={() => {
+            console.log('Delete clicked for index:', index);
+            dispatch(deleteOne(index));
+          }}
+      >X</button>
+    )
+  }
+
   return (
     <div className={styles.item_box}>
       <ul>
@@ -47,9 +62,10 @@ export function ListItem(props) {
         <li>Time Range: {metadata.timeRange}</li>
       </ul>
       {
-        (modalToggle && props.id === selectedIndex && updateOperationMode && modalVisible) ? < ListModal metadata={metadata} id={props.id} /> : <></>
+        (modalToggle && props.id === selectedIndex && updateOperationMode && modalVisible) ? < ListModal metadata={metadata} id={selectedIndex} /> : <></>
       }
       <UpdateButton />
+      <DeleteButton />
     </div>
   )
 }

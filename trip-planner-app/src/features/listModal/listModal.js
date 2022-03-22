@@ -7,7 +7,6 @@ import {
 } from '../list/listSlice';
 
 import {
-  selectModalIndex,
   selectModalOperation,
   hideModalView,
 } from './listModalSlice'
@@ -16,20 +15,17 @@ import styles from '../list/List.module.css';
 
 function ListModal(props) {
   const modalOperation = useSelector(selectModalOperation);
-  const modalIndex = useSelector(selectModalIndex);
+  console.log('what is modalOepration?', modalOperation)
 
   const dispatch = useDispatch();
 
   // Create or Update based on modal operation
   const metadata = props.metadata;
-  const [newIndex, setNewIndex] = useState(modalIndex);
   const [nameInput, setNameInput] = useState(modalOperation === 'add' ? 'Insert name here' : metadata.name);
   const [latInput, setLatInput] = useState(modalOperation === 'add' ? 'Insert latitude here' : metadata.latLng.lat);
   const [lngInput, setLngInput] = useState(modalOperation === 'add' ? 'Insert longitude here' : metadata.latLng.lng);
   const [descriptionInput, setDescriptionInput] = useState(modalOperation === 'add' ? 'Insert description here' : metadata.description);
   const [timeRangeInput, setTimeRangeInput] = useState(modalOperation === 'add' ? 'Insert time range here' : metadata.timeRange);
-
-  const index_to_edit = typeof Number(newIndex) == 'number' ? Number(newIndex) : 0;
 
   // package the latitude and longitude for use in latLng field
   const latLngInput = {
@@ -39,7 +35,7 @@ function ListModal(props) {
 
   // data to send through the modal
   const payload = {
-    index: index_to_edit,
+    index: props.id,
     metadata: {
       name: nameInput,
       latLng: latLngInput,
@@ -106,6 +102,7 @@ function ListModal(props) {
           className={styles.button}
           aria-label="Confirm Data Update"
           onClick={() => { 
+            console.log('what is payload in Save?', payload)
             dispatch(updateOne(payload));
             dispatch(hideModalView());
           }}
