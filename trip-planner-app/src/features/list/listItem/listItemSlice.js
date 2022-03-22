@@ -2,17 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   // location name
-  name: 'Chicago',
+  name: '',
   // latitude and longitude
   latLng: { lat: function() {
-      return 41.85;
+      return 0;
     },
     lng: function() {
-      return -87.65;
+      return 0;
     },
   },
-  description: "Chicago, Capital City of Illinois",
-  timeRange: "0:00 - 23:59",
+  description: "",
+  timeRange: "",
 };
 
 export const listItemSlice = createSlice({

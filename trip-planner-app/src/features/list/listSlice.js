@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  index: 0,
+  index: null,
   list: [
     {
       // UID
@@ -45,10 +45,13 @@ export const listSlice = createSlice({
     deleteOne: (state, action) => {
       state.list.splice(action.payload.index, 1);
     },
+    updateIndex: (state, action) => {
+      state.index = action.payload;
+    }
   }
 });
 
-export const { addOne, updateOne, deleteOne } = listSlice.actions
+export const { addOne, updateOne, deleteOne, updateIndex } = listSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

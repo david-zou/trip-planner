@@ -76,3 +76,9 @@
   opacity: 1;
   transition: 0s;
 }
+
+.item_box {
+  padding: 20px;
+  margin: 10px;
+  border: 1px solid black;
+}

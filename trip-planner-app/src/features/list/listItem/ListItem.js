@@ -1,44 +1,40 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  editPlace,
-  selectName,
-  selectLatLng,
-  selectDescription,
-  selectTimeRange,
-} from './listItemSlice'
+  populateUpdateModal,
+  showModalView,
+  selectModalToggle,
+  selectModalOperation,
+} from '../../listModal/listModalSlice'
+import {
+  selectIndex,
+} from '../listSlice'
+import ListModal from '../../listModal/listModal.js'
 import styles from './ListItem.module.css';
+import { updateIndex } from '../listSlice';
 
 export function ListItem(props) {
-  // const name = useSelector(selectName);
-  // const latLng = useSelector(selectLatLng);
-  // const description = useSelector(selectDescription);
-  // const timeRange = useSelector(selectTimeRange);
-  // const dispatch = useDispatch();
-
-  // const [nameInput, setNameInput] = useState(name);
-  // const [latInput, setLatInput] = useState(latLng.lat());
-  // const [lngInput, setLngInput] = useState(latLng.lng());
-  // const [descriptionInput, setDescriptionInput] = useState(description);
-  // const [timeRangeInput, setTimeRangeInput] = useState(timeRange);
-
-  // function setCoord(coord) {
-  //   return (coord) => Number(coord)
-  // }
-
-  // const latLngInput = {
-  //   lat: setCoord(latInput),
-  //   lng: setCoord(lngInput),
-  // }
-
-  // const metadata = {
-  //   name: nameInput,
-  //   latLng: latLngInput,
-  //   description: descriptionInput,
-  //   timeRange: timeRangeInput,
-  // }
-
+  const dispatch = useDispatch();
+  const modalToggle = useSelector(selectModalToggle);
+  const selectedIndex = useSelector(selectIndex);
+  const updateOperationMode = useSelector(selectModalOperation) === 'update';
   const metadata = props.metadata;
+
+  const UpdateButton = () => {
+    const index = props.id
+    return (
+      <button
+          className={styles.button}
+          aria-label="Open Update Modal"
+          onClick={() => {
+            console.log('Update clicked for index:', index)
+            dispatch(updateIndex(index));
+            dispatch(populateUpdateModal(index));
+            dispatch(showModalView());
+          }}
+      >Update</button>
+    )
+  }
 
   return (
     <div className={styles.item_box}>
@@ -49,6 +45,10 @@ export function ListItem(props) {
         <li>Description: {metadata.description}</li>
         <li>Time Range: {metadata.timeRange}</li>
       </ul>
+      {
+        (modalToggle && props.id === selectedIndex && updateOperationMode) ? < ListModal metadata={metadata} id={props.id} /> : <></>
+      }
+      <UpdateButton />
     </div>
   )
 }
