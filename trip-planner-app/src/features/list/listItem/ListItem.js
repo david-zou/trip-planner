@@ -63,7 +63,7 @@ export function ListItem(props) {
         (modalToggle && props.id === selectedIndex && updateOperationMode && modalVisible) ? < ListModal metadata={metadata} id={selectedIndex} /> : <></>
       }
       {
-        !(modalVisible && updateOperationMode) ? (
+        !(modalVisible && updateOperationMode && props.id === selectedIndex) ? (
           <>
             <UpdateButton />
             <DeleteButton />
