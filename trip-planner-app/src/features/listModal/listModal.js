@@ -11,7 +11,7 @@ import {
   hideModalView,
 } from './listModalSlice'
 
-import styles from '../list/List.module.css';
+import styles from './ListModal.module.css';
 
 function ListModal(props) {
   const modalOperation = useSelector(selectModalOperation);
@@ -46,7 +46,7 @@ function ListModal(props) {
 
   return (
     <div>
-      <h1>{ modalOperation === 'add' ? 'Add:' : 'Update:'}</h1>
+      <h2>{ modalOperation === 'add' ? 'Add:' : 'Update:'}</h2>
       <label>Name:</label>
       <input
         className={styles.textbox}

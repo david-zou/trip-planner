@@ -29,7 +29,6 @@ export function ListItem(props) {
           className={styles.button}
           aria-label="Open Update Modal"
           onClick={() => {
-            console.log('Update clicked for index:', index)
             dispatch(updateIndex(index));
             dispatch(populateUpdateModal(index));
             dispatch(showModalView());
@@ -45,7 +44,6 @@ export function ListItem(props) {
           className={styles.button}
           aria-label="Delete Location"
           onClick={() => {
-            console.log('Delete clicked for index:', index);
             dispatch(deleteOne(index));
           }}
       >X</button>
@@ -64,8 +62,15 @@ export function ListItem(props) {
       {
         (modalToggle && props.id === selectedIndex && updateOperationMode && modalVisible) ? < ListModal metadata={metadata} id={selectedIndex} /> : <></>
       }
-      <UpdateButton />
-      <DeleteButton />
+      {
+        !(modalVisible && updateOperationMode) ? (
+          <>
+            <UpdateButton />
+            <DeleteButton />
+          </>
+        ) : <></>
+      }
+      
     </div>
   )
 }
