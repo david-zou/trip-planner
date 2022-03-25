@@ -21,7 +21,7 @@ function App() {
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         {/* <Counter /> */}
         <div className="app-container">
-          <div>
+          <div id="list">
             <List />
           </div>
           <div id="map">

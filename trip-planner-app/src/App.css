@@ -41,6 +41,13 @@
 .app-container {
   display: flex;
   gap: 0.5em;
+  max-height: 100vh;
+}
+
+#list {
+  overflow: scroll;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
 }
 
 #map {
@@ -53,6 +60,6 @@
 
 .leaflet-container {  
   width: 50vw;
-  /* height: 100vh; */
+  min-height: 97vh;
   height: 100%;
 }
