@@ -21,7 +21,7 @@ const initialState = {
       name: 'San Francisco',
       // latitude and longitude
       latLng: { lat: 37.7749,
-                lng: 122.4194 },
+                lng: -122.4194 },
       description: "San Francisco, Home of the Golden Gate Bridge",
       timeRange: "6:00 - 18:00",
     },
