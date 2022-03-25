@@ -47,45 +47,56 @@ function ListModal(props) {
   return (
     <div>
       <h2>{ modalOperation === 'add' ? 'Add:' : 'Update:'}</h2>
-      <label>Name:</label>
-      <input
-        className={styles.textbox}
-        aria-label="Set name"
-        value={nameInput}
-        onChange={(e) => setNameInput(e.target.value)}
-      />
+      <div>
+        <label>Name:</label>
+        <input
+          className={styles.textbox}
+          aria-label="Set name"
+          value={nameInput}
+          onChange={(e) => setNameInput(e.target.value)}
+        />
+      </div>
 
-      <label>Latitude:</label>
-      <input
-        className={styles.textbox}
-        aria-label="Set latitude"
-        value={latInput}
-        onChange={(e) => setLatInput(e.target.value)}
-      />
+      <div>
+        <label>Latitude:</label>
+        <input
+          className={styles.textbox}
+          aria-label="Set latitude"
+          value={latInput}
+          onChange={(e) => setLatInput(e.target.value)}
+        />
+      </div>
 
-      <label>Longitude:</label>
-      <input
-        className={styles.textbox}
-        aria-label="Set longitude"
-        value={lngInput}
-        onChange={(e) => setLngInput(e.target.value)}
-      />
+      <div>
+        <label>Longitude:</label>
+        <input
+          className={styles.textbox}
+          aria-label="Set longitude"
+          value={lngInput}
+          onChange={(e) => setLngInput(e.target.value)}
+        />
+      </div>
 
-      <label>Description:</label>
-      <input
-        className={styles.textbox}
-        aria-label="Set description"
-        value={descriptionInput}
-        onChange={(e) => setDescriptionInput(e.target.value)}
-      />
+      <div>
+        <label>Description:</label>
+        <input
+          className={styles.textbox}
+          aria-label="Set description"
+          value={descriptionInput}
+          onChange={(e) => setDescriptionInput(e.target.value)}
+        />
+      </div>
 
-      <label>Time Range:</label>
-      <input
-        className={styles.textbox}
-        aria-label="Set time range"
-        value={timeRangeInput}
-        onChange={(e) => setTimeRangeInput(e.target.value)}
-      />
+      <div>
+        <label>Time Range:</label>
+        <input
+          className={styles.textbox}
+          aria-label="Set time range"
+          value={timeRangeInput}
+          onChange={(e) => setTimeRangeInput(e.target.value)}
+        />
+      </div>
+      
       <div>
         { modalOperation === 'add' ?
         <button
