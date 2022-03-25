@@ -37,3 +37,22 @@
     transform: translateY(0px);
   }
 }
+
+.app-container {
+  display: flex;
+  gap: 0.5em;
+}
+
+#map {
+  border: 1px solid black;
+  padding: 0.25em;
+  margin-top: 0.25em;
+  margin-right: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.leaflet-container {  
+  width: 50vw;
+  /* height: 100vh; */
+  height: 100%;
+}
