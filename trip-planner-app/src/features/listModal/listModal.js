@@ -15,8 +15,6 @@ import styles from './ListModal.module.css';
 
 function ListModal(props) {
   const modalOperation = useSelector(selectModalOperation);
-  console.log('what is modalOepration?', modalOperation)
-
   const dispatch = useDispatch();
 
   // Create or Update based on modal operation
@@ -113,7 +111,6 @@ function ListModal(props) {
           className={styles.button}
           aria-label="Confirm Data Update"
           onClick={() => { 
-            console.log('what is payload in Save?', payload)
             dispatch(updateOne(payload));
             dispatch(hideModalView());
           }}

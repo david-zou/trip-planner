@@ -1,22 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { List } from './features/list/List';
 import {
   selectList,
+  selectBounds,
 } from './features/list/listSlice';
 import { useSelector } from 'react-redux';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { latLngBounds } from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import './App.css';
 
+function MapBounds () {
+  const map = useMap();
+  map.fitBounds(useSelector(selectBounds));
+  return null;
+}
+
 function App() {
-  // TODO: Change position to be average of all the coordinates
-  const position = [37.7648, -122.463];
+  // TODO: Change position and zoom to be within bounds of marker group(s)
+  // Ref(s): https://react-leaflet.js.org/docs/example-view-bounds/
+  // https://leafletjs.com/SlavaUkraini/reference.html#latlngbounds
   const locations = useSelector(selectList).map((location) => {
     return { position: [ location.latLng.lat, location.latLng.lng ],
              description: location.description,
              timeRange: location.timeRange,
            };
-  })
-
+  });
+  const mapBounds = latLngBounds(useSelector(selectList).map((location) => {
+    return [ location.latLng.lat, location.latLng.lng ];
+  }));
+  const [bounds, setBounds] = useState(mapBounds);
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -25,7 +38,9 @@ function App() {
             <List />
           </div>
           <div id="map">
-            <MapContainer center={position} zoom={13}>
+            {/* <MapContainer center={position} zoom={13}> */}
+            <MapContainer bounds={bounds}>
+              <MapBounds />
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

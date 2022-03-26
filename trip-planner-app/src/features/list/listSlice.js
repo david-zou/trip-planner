@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  // latlngbounds of all the locations
+  bounds: null,
+  // currently selected location in list
   index: null,
   list: [
     {
@@ -36,25 +39,25 @@ export const listSlice = createSlice({
     // Use the PayloadAction type to declare the contents of `action.payload`
     addOne: (state, action) => {
       // where payload is an object containing name, latlng, description, timerange metadata of a listitem
-      // state.list.push(action.payload.list[action.payload.index])
-      state.list.push(action.payload.metadata)
+      state.list.push(action.payload.metadata);
     },
     updateOne: (state, action) => {
-      console.log('updateOne called with index:', action.payload.index);
       state.list.splice(action.payload.index, 1, action.payload.metadata);
     },
     deleteOne: (state, action) => {
-      console.log('deleteOne called with index:', action.payload);
       state.list.splice(action.payload, 1);
     },
     updateIndex: (state, action) => {
-      console.log('updateIndex called with action.payload:', action.payload)
       state.index = action.payload;
+    },
+    updateBounds: (state, action) => {
+      console.log('updateBounds called with:', action.payload)
+      state.bounds = action.payload;
     }
   }
 });
 
-export const { addOne, updateOne, deleteOne, updateIndex } = listSlice.actions;
+export const { addOne, updateOne, deleteOne, updateIndex, updateBounds } = listSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -62,5 +65,6 @@ export const { addOne, updateOne, deleteOne, updateIndex } = listSlice.actions;
 // export const selectName = (state) => state.listItem.name;
 export const selectList = (state) => state.list.list;
 export const selectIndex = (state) => state.list.index;
+export const selectBounds = (state) => state.list.bounds;
 
 export default listSlice.reducer;

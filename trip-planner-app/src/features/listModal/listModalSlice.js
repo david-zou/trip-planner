@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  // index: null,
   toggle: false,
   operation: '',
 };
@@ -23,8 +22,6 @@ export const listModalSlice = createSlice({
       state.toggle = true;
     },
     hideModalView: (state) => {
-      console.log('hideModalView activated')
-      // state.index = null;
       state.toggle = false;
       state.operation = '';
     }
