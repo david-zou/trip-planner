@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {
   addOne,
+  toggleBoundFlag,
   updateOne,
 } from '../list/listSlice';
 
@@ -101,8 +102,9 @@ function ListModal(props) {
           className={styles.button}
           aria-label="Confirm Data Addition"
           onClick={() => { 
-            dispatch(addOne(payload))
-            dispatch(hideModalView()) 
+            dispatch(addOne(payload));
+            dispatch(toggleBoundFlag());
+            dispatch(hideModalView());
           }}
         >
           Save
@@ -112,6 +114,7 @@ function ListModal(props) {
           aria-label="Confirm Data Update"
           onClick={() => { 
             dispatch(updateOne(payload));
+            dispatch(toggleBoundFlag());
             dispatch(hideModalView());
           }}
         >

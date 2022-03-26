@@ -3,15 +3,23 @@ import { List } from './features/list/List';
 import {
   selectList,
   selectBounds,
+  selectBoundChanged,
+  toggleBoundFlag,
 } from './features/list/listSlice';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { latLngBounds } from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import './App.css';
 
 function MapBounds () {
+  const dispatch = useDispatch();
   const map = useMap();
-  map.fitBounds(useSelector(selectBounds));
+  const bounds = useSelector(selectBounds);
+  const changedBounds = useSelector(selectBoundChanged);
+  if (changedBounds) {
+    map.fitBounds(bounds);
+    dispatch(toggleBoundFlag())
+  }
   return null;
 }
 
@@ -39,7 +47,7 @@ function App() {
           </div>
           <div id="map">
             {/* <MapContainer center={position} zoom={13}> */}
-            <MapContainer bounds={bounds}>
+            <MapContainer>
               <MapBounds />
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

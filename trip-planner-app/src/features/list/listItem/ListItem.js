@@ -9,6 +9,7 @@ import {
 import {
   selectIndex,
   deleteOne,
+  toggleBoundFlag,
 } from '../listSlice'
 import ListModal from '../../listModal/listModal.js'
 import styles from './ListItem.module.css';
@@ -45,6 +46,7 @@ export function ListItem(props) {
           aria-label="Delete Location"
           onClick={() => {
             dispatch(deleteOne(index));
+            dispatch(toggleBoundFlag());
           }}
       >X</button>
     )

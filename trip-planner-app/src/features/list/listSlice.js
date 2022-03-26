@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   // latlngbounds of all the locations
   bounds: null,
+  // flag for bound update
+  boundChanged: true,
   // currently selected location in list
   index: null,
   list: [
@@ -53,11 +55,14 @@ export const listSlice = createSlice({
     updateBounds: (state, action) => {
       console.log('updateBounds called with:', action.payload)
       state.bounds = action.payload;
+    },
+    toggleBoundFlag: (state) => {
+      state.boundChanged = !state.boundChanged;
     }
   }
 });
 
-export const { addOne, updateOne, deleteOne, updateIndex, updateBounds } = listSlice.actions;
+export const { addOne, updateOne, deleteOne, updateIndex, updateBounds, toggleBoundFlag } = listSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -66,5 +71,6 @@ export const { addOne, updateOne, deleteOne, updateIndex, updateBounds } = listS
 export const selectList = (state) => state.list.list;
 export const selectIndex = (state) => state.list.index;
 export const selectBounds = (state) => state.list.bounds;
+export const selectBoundChanged = (state) => state.list.boundChanged;
 
 export default listSlice.reducer;
