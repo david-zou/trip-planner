@@ -33,10 +33,19 @@ function App() {
              timeRange: location.timeRange,
            };
   });
-  const mapBounds = latLngBounds(useSelector(selectList).map((location) => {
-    return [ location.latLng.lat, location.latLng.lng ];
-  }));
-  const [bounds, setBounds] = useState(mapBounds);
+
+  console.log('what is locations now?:', locations);
+  // if (locations.length === 0) {
+  //   locations = [{
+  //     position: [ 37.7749, -122.4194],
+  //     description: "San Francisco, CA",
+  //     timeRange: "N/A",
+  //   }]
+  // }
+  // const mapBounds = latLngBounds(useSelector(selectList).map((location) => {
+  //   return [ location.latLng.lat, location.latLng.lng ];
+  // }));
+  // const [bounds, setBounds] = useState(mapBounds);
   
   return (
     <div className="App">
@@ -48,7 +57,7 @@ function App() {
           <div id="map">
             {/* <MapContainer center={position} zoom={13}> */}
             <MapContainer>
-              <MapBounds />
+              { locations.length > 0 && <MapBounds /> }
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
