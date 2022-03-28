@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { latLngBounds } from 'leaflet';
+// import { latLngBounds } from 'leaflet';
 
 import  { ListItem } from './listItem/ListItem';
 import ListModal from '../listModal/listModal';
@@ -27,10 +27,13 @@ export function List() {
   const modalVisible = useSelector(selectModalToggle);
 
   // update bounds on list changes
-  const bounds = latLngBounds(useSelector(selectList).map((location) => {
+  const bounds = useSelector(selectList).map((location) => {
     return [ location.latLng.lat, location.latLng.lng ];
-  }));
-  dispatch(updateBounds(bounds));
+  });
+  //  useEffect Hook as componentDidMount, componentDidUpdate, and componentWillUnmount combined.
+  useEffect(() => {
+    dispatch(updateBounds(bounds));
+  });
 
   const AddButton = () => {
     return (

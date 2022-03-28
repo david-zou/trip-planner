@@ -8,21 +8,23 @@ import {
 } from './features/list/listSlice';
 import { useSelector } from 'react-redux';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { latLngBounds } from 'leaflet';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
 import 'leaflet-defaulticon-compatibility';
 
-function MapBounds () {
+const MapBounds = () => {
   const map = useMap();
-  const bounds = useSelector(selectBounds);
+  const bounds = latLngBounds(useSelector(selectBounds));
+  // console.log('bounds in MapBounds:', bounds);
   map.fitBounds(bounds);
   return null;
 }
 
 const FlyToCoords = ({ latLng }) => {
   const map = useMap();
-  console.log('flyToCoords called, what is latLng?', latLng)
+  // console.log('flyToCoords called, what is latLng?', latLng)
   map.flyTo(latLng, 14, { duration: 2 });
   return null;
 }
@@ -70,7 +72,7 @@ function App() {
                   )
                 })
               }
-              { selectOperationMode && <FlyToCoords latLng={locationList[selected].latLng} /> }
+              { selectOperationMode && <FlyToCoords latLng={locationList[selected].latLng} />}
             </MapContainer>
           </div>
         </div>

@@ -3,8 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   // latlngbounds of all the locations
   bounds: null,
-  // flag for bound update
-  boundChanged: true,
   // item in list to modify
   index: null,
   // locations list
@@ -36,8 +34,6 @@ const initialState = {
   selected: -1,
   // to keep track of changes made to selected location, default at -1 
   // to prevent initial conflicts (since you cannot have a length of -1)
-  previouslySelected: -1,
-  previousBounds: -1,
   operation: 'init',
 };
 
@@ -63,18 +59,8 @@ export const listSlice = createSlice({
     updateBounds: (state, action) => {
       state.bounds = action.payload;
     },
-    updatePreviousBounds: (state, action) => {
-      state.previousBounds = action.payload;
-    },
     updateSelected: (state, action) => {
       state.selected = action.payload;
-    },
-    toggleBoundChanged: (state) => {
-      console.log('toggleBoundChanged called')
-      state.boundChanged = !state.boundChanged;
-    },
-    updatePreviouslySelected: (state, action) => {
-      state.previouslySelected = action.payload;
     },
     updateOperation: (state, action) => {
       state.operation = action.payload;
@@ -82,7 +68,7 @@ export const listSlice = createSlice({
   }
 });
 
-export const { addOne, updateOne, deleteOne, updateIndex, updateBounds, updateSelected, toggleBoundChanged, updatePreviouslySelected, updatePreviousBounds, updateOperation } = listSlice.actions;
+export const { addOne, updateOne, deleteOne, updateIndex, updateBounds, updateSelected, updateOperation } = listSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -91,11 +77,7 @@ export const { addOne, updateOne, deleteOne, updateIndex, updateBounds, updateSe
 export const selectList = (state) => state.list.list;
 export const selectIndex = (state) => state.list.index;
 export const selectBounds = (state) => state.list.bounds;
-export const selectTarget = (state) => state.list.target;
-export const selectBoundChanged = (state) => state.list.boundChanged;
-export const selectPreviousBounds = (state) => state.list.previousBounds;
 export const selectSelected = (state) => state.list.selected;
-export const selectPreviouslySelected = (state) => state.list.previouslySelected;
 export const selectOperation = (state) => state.list.operation;
 
 export default listSlice.reducer;
