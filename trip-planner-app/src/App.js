@@ -48,6 +48,7 @@ function App() {
   const selected = useSelector(selectSelected); // currently selected location
   const previouslySelected = useSelector(selectPreviouslySelected); // check if selected location changed
   const selectOperationMode = useSelector(selectOperation) === 'select';
+  const updateOperationMode = useSelector(selectOperation) === 'update';
   const saveOperationMode = useSelector(selectOperation) === 'save';
   const deleteOperationMode = useSelector(selectOperation) === 'delete';
   const initialized = useSelector(selectOperation) === 'init';
@@ -101,7 +102,7 @@ function App() {
                   )
                 })
               }
-              { selectOperationMode && <FlyToCoords latLng={locationList[selected].latLng} /> }
+              { (selectOperationMode || (updateOperationMode && selected > 0)) && <FlyToCoords latLng={locationList[selected].latLng} /> }
             </MapContainer>
           </div>
         </div>
