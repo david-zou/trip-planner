@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {
   addOne,
-  toggleBoundChanged,
   updateOne,
   selectOperation,
   updateOperation,

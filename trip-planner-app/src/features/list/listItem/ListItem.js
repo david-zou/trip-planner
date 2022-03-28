@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  populateUpdateModal,
   showModalView,
   selectModalToggle,
-  // selectModalOperation,
 } from '../../listModal/listModalSlice'
 import {
   selectIndex,
   deleteOne,
-  toggleBoundChanged,
   selectSelected,
   updateSelected,
-  updatePreviouslySelected,
   selectOperation,
   updateOperation,
 } from '../listSlice'
 import ListModal from '../../listModal/listModal.js'
 import styles from './ListItem.module.css';
 import { updateIndex } from '../listSlice';
-import { useMap } from 'react-leaflet';
 
 export function ListItem(props) {
   const dispatch = useDispatch();
@@ -62,8 +57,6 @@ export function ListItem(props) {
   }
 
   const handleFlyToCoords = () => {
-    console.log('handleFlyToCoords triggered')
-    // if (selected !== -1) dispatch(updatePreviouslySelected(selected))
     dispatch(updateOperation('select'))
     dispatch(updateSelected(target));
     setClicked(true);

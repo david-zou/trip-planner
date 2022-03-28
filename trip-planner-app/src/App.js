@@ -1,34 +1,21 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { List } from './features/list/List';
 import {
   selectList,
   selectBounds,
-  selectBoundChanged,
-  toggleBoundChanged,
   selectSelected,
-  selectSelectedChanged,
-  selectPreviouslySelected,
-  selectPreviousBounds,
   selectOperation,
 } from './features/list/listSlice';
-// import {
-//   selectModalOperation,
-// } from './features/listModal/listModalSlice'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import './App.css';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
+import 'leaflet-defaulticon-compatibility';
 
 function MapBounds () {
-  const dispatch = useDispatch();
   const map = useMap();
   const bounds = useSelector(selectBounds);
-  // const changedBounds = useSelector(selectBoundChanged);
-  // const previousBounds = useSelector(selectPreviousBounds);
-  // const initialized = useSelector(selectOperation) === 'init';
-  // if ((bounds[0] !== previousBounds[0] && bounds[1] !== previousBounds[1])  || initialized) {
-  //   console.log('fitbounds called with bounds:', bounds); 
-  //   map.fitBounds(bounds);
-  // }
   map.fitBounds(bounds);
   return null;
 }
@@ -46,9 +33,7 @@ function App() {
   // https://leafletjs.com/SlavaUkraini/reference.html#latlngbounds
   const locationList = useSelector(selectList);
   const selected = useSelector(selectSelected); // currently selected location
-  const previouslySelected = useSelector(selectPreviouslySelected); // check if selected location changed
   const selectOperationMode = useSelector(selectOperation) === 'select';
-  const updateOperationMode = useSelector(selectOperation) === 'update';
   const saveOperationMode = useSelector(selectOperation) === 'save';
   const deleteOperationMode = useSelector(selectOperation) === 'delete';
   const initialized = useSelector(selectOperation) === 'init';
@@ -59,23 +44,6 @@ function App() {
              timeRange: location.timeRange,
            };
   });
-
-  // console.log('what is locations now?:', locations);
-  // console.log('what is selected:', selected);
-  // console.log('what is previously selected:', previouslySelected);
-
-  // if (locations.length === 0) {
-  //   locations = [{
-  //     position: [ 37.7749, -122.4194],
-  //     description: "San Francisco, CA",
-  //     timeRange: "N/A",
-  //   }]
-  // }
-  // const mapBounds = latLngBounds(useSelector(selectList).map((location) => {
-  //   return [ location.latLng.lat, location.latLng.lng ];
-  // }));
-  // const [bounds, setBounds] = useState(mapBounds);
-  console.log('will MapBounds render?', locations.length > 0 && (saveOperationMode || initialized));
   
   return (
     <div className="App">
@@ -85,7 +53,6 @@ function App() {
             <List />
           </div>
           <div id="map">
-            {/* <MapContainer center={position} zoom={13}> */}
             <MapContainer>
               { locations.length > 0 && (saveOperationMode || deleteOperationMode || initialized) && <MapBounds /> }
               <TileLayer
@@ -97,7 +64,7 @@ function App() {
                   return (
                     <Marker position={location.position} key={index} >
                       <Popup>
-                        <strong>{location.name}</strong> <br/> {location.description} <br/> {location.timeRange}
+                        <strong>{location.name}</strong> <em>{'('+ location.position[0] + ', ' + location.position[1] + ')'}</em> <br/> {location.description} <br/> {location.timeRange}
                       </Popup>
                     </Marker>
                   )
