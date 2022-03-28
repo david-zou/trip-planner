@@ -54,6 +54,7 @@ function App() {
   const initialized = useSelector(selectOperation) === 'init';
   const locations = locationList.map((location) => {
     return { position: [ location.latLng.lat, location.latLng.lng ],
+             name: location.name,
              description: location.description,
              timeRange: location.timeRange,
            };
@@ -96,7 +97,7 @@ function App() {
                   return (
                     <Marker position={location.position} key={index} >
                       <Popup>
-                        {location.description} <br/> {location.timeRange}
+                        <strong>{location.name}</strong> <br/> {location.description} <br/> {location.timeRange}
                       </Popup>
                     </Marker>
                   )
