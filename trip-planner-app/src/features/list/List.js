@@ -8,9 +8,7 @@ import ListModal from '../listModal/listModal';
 import styles from './List.module.css';
 
 import {
-  populateAddModal,
   showModalView,
-  // selectModalOperation,
   selectModalToggle,
 } from '../listModal/listModalSlice';
 
@@ -19,6 +17,7 @@ import {
   updateBounds,
   selectOperation,
   updateOperation,
+  updateSelected,
 } from './listSlice';
 
 export function List() {
@@ -54,6 +53,7 @@ export function List() {
           aria-label="Reset Map Zoom"
           onClick={(e) => {
             dispatch(updateOperation('init'))
+            dispatch(updateSelected(-1));
             e.stopPropagation();
           }}
       >Reset Zoom</button>

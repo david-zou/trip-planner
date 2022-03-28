@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   populateUpdateModal,
@@ -30,6 +30,7 @@ export function ListItem(props) {
   const modalVisible = useSelector(selectModalToggle);
   const target = props.id
   const metadata = props.metadata;
+  const [ clicked, setClicked ] = useState(false);
 
   const UpdateButton = () => {
     return (
@@ -64,11 +65,11 @@ export function ListItem(props) {
     if (selected !== -1) dispatch(updatePreviouslySelected(selected))
     dispatch(updateOperation('select'))
     dispatch(updateSelected(target));
+    setClicked(true);
   }
 
   return (
-    <div className={styles.item_box} onClick={handleFlyToCoords}>
-    {/* <div className={styles.item_box}> */}
+    <div className={(clicked && props.id === selected) ? styles.item_box_selected : styles.item_box} onClick={handleFlyToCoords}>
       <ul>
         <li>Name: {metadata.name}</li>
         <li>Latitude: {metadata.latLng.lat}</li>

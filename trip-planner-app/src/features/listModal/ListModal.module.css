@@ -40,9 +40,16 @@
 .textbox {
   font-size: 32px;
   padding: 2px;
-  /* width: 64px; */
   text-align: center;
   margin-right: 4px;
+}
+
+.textbox_selected {
+  font-size: 32px;
+  padding: 2px;
+  text-align: center;
+  margin-right: 4px;
+  background-color: crimson;
 }
 
 .button:hover,

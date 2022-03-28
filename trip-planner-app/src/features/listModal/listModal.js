@@ -7,6 +7,8 @@ import {
   updateOne,
   selectOperation,
   updateOperation,
+  selectSelected,
+  updateSelected,
 } from '../list/listSlice';
 
 import {
@@ -17,6 +19,7 @@ import styles from './ListModal.module.css';
 
 function ListModal(props) {
   const modalOperation = useSelector(selectOperation);
+  const selected = useSelector(selectSelected);
   const dispatch = useDispatch();
 
   // Create or Update based on modal operation
@@ -50,7 +53,7 @@ function ListModal(props) {
       <div>
         <label>Name:</label>
         <input
-          className={styles.textbox}
+          className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set name"
           value={nameInput}
           onChange={(e) => setNameInput(e.target.value)}
@@ -60,7 +63,7 @@ function ListModal(props) {
       <div>
         <label>Latitude:</label>
         <input
-          className={styles.textbox}
+          className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set latitude"
           value={latInput}
           onChange={(e) => setLatInput(e.target.value)}
@@ -70,7 +73,7 @@ function ListModal(props) {
       <div>
         <label>Longitude:</label>
         <input
-          className={styles.textbox}
+          className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set longitude"
           value={lngInput}
           onChange={(e) => setLngInput(e.target.value)}
@@ -80,7 +83,7 @@ function ListModal(props) {
       <div>
         <label>Description:</label>
         <input
-          className={styles.textbox}
+          className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set description"
           value={descriptionInput}
           onChange={(e) => setDescriptionInput(e.target.value)}
@@ -90,7 +93,7 @@ function ListModal(props) {
       <div>
         <label>Time Range:</label>
         <input
-          className={styles.textbox}
+          className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set time range"
           value={timeRangeInput}
           onChange={(e) => setTimeRangeInput(e.target.value)}
@@ -118,9 +121,10 @@ function ListModal(props) {
           onClick={(e) => { 
             dispatch(updateOne(payload));
             dispatch(updateOperation('save'));
+            dispatch(updateSelected(-1));
             // dispatch(toggleBoundChanged());
             dispatch(hideModalView());
-            // e.stopPropagation();
+            e.stopPropagation();
           }}
         >
           Save
