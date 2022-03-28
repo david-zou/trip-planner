@@ -66,8 +66,8 @@ export function ListItem(props) {
     <div className={(clicked && props.id === selected) ? styles.item_box_selected : styles.item_box} onClick={handleFlyToCoords}>
       <ul>
         <li>Name: {metadata.name}</li>
-        <li>Latitude: {metadata.latLng.lat}</li>
-        <li>Longitude: {metadata.latLng.lng}</li>
+        <li>Latitude: {metadata.latLng.lat}°</li>
+        <li>Longitude: {metadata.latLng.lng}°</li>
         <li>Description: {metadata.description}</li>
         <li>Time Range: {metadata.timeRange}</li>
       </ul>

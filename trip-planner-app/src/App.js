@@ -64,7 +64,7 @@ function App() {
                   return (
                     <Marker position={location.position} key={index} >
                       <Popup>
-                        <strong>{location.name}</strong> <em>{'('+ location.position[0] + ', ' + location.position[1] + ')'}</em> <br/> {location.description} <br/> {location.timeRange}
+                        <strong>{location.name}</strong> <em>{'('+ location.position[0] + '°, ' + location.position[1] + '°)'}</em> <br/> {location.description} <br/> {location.timeRange}
                       </Popup>
                     </Marker>
                   )
