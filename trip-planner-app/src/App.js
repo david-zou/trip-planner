@@ -102,7 +102,7 @@ function App() {
                   )
                 })
               }
-              { (selectOperationMode || (updateOperationMode && selected > 0)) && <FlyToCoords latLng={locationList[selected].latLng} /> }
+              { selectOperationMode && <FlyToCoords latLng={locationList[selected].latLng} /> }
             </MapContainer>
           </div>
         </div>

@@ -62,7 +62,8 @@ export function ListItem(props) {
   }
 
   const handleFlyToCoords = () => {
-    if (selected !== -1) dispatch(updatePreviouslySelected(selected))
+    console.log('handleFlyToCoords triggered')
+    // if (selected !== -1) dispatch(updatePreviouslySelected(selected))
     dispatch(updateOperation('select'))
     dispatch(updateSelected(target));
     setClicked(true);

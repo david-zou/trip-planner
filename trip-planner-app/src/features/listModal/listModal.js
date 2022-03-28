@@ -56,7 +56,10 @@ function ListModal(props) {
           className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set name"
           value={nameInput}
-          onChange={(e) => setNameInput(e.target.value)}
+          onClick={(e) => e.stopPropagation()}
+          onChange={(e) =>
+            setNameInput(e.target.value)
+          }
         />
       </div>
 
@@ -66,7 +69,10 @@ function ListModal(props) {
           className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set latitude"
           value={latInput}
-          onChange={(e) => setLatInput(e.target.value)}
+          onClick={(e) => e.stopPropagation()}
+          onChange={(e) =>
+            setLatInput(e.target.value)
+          }
         />
       </div>
 
@@ -76,6 +82,7 @@ function ListModal(props) {
           className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set longitude"
           value={lngInput}
+          onClick={(e) => e.stopPropagation()}
           onChange={(e) => setLngInput(e.target.value)}
         />
       </div>
@@ -86,6 +93,7 @@ function ListModal(props) {
           className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set description"
           value={descriptionInput}
+          onClick={(e) => e.stopPropagation()}
           onChange={(e) => setDescriptionInput(e.target.value)}
         />
       </div>
@@ -96,6 +104,7 @@ function ListModal(props) {
           className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set time range"
           value={timeRangeInput}
+          onClick={(e) => e.stopPropagation()}
           onChange={(e) => setTimeRangeInput(e.target.value)}
         />
       </div>
@@ -108,9 +117,8 @@ function ListModal(props) {
           onClick={(e) => { 
             dispatch(addOne(payload));
             dispatch(updateOperation('save'));
-            // dispatch(toggleBoundChanged());
             dispatch(hideModalView());
-            // e.stopPropagation();
+            e.stopPropagation();
           }}
         >
           Save
@@ -118,11 +126,10 @@ function ListModal(props) {
         <button
           className={styles.button}
           aria-label="Confirm Data Update"
-          onClick={(e) => { 
+          onClick={(e) => {
             dispatch(updateOne(payload));
             dispatch(updateOperation('save'));
             dispatch(updateSelected(-1));
-            // dispatch(toggleBoundChanged());
             dispatch(hideModalView());
             e.stopPropagation();
           }}
