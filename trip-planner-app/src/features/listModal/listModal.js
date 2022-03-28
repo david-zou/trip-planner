@@ -3,19 +3,20 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {
   addOne,
-  toggleBoundFlag,
+  toggleBoundChanged,
   updateOne,
+  selectOperation,
+  updateOperation,
 } from '../list/listSlice';
 
 import {
-  selectModalOperation,
   hideModalView,
 } from './listModalSlice'
 
 import styles from './ListModal.module.css';
 
 function ListModal(props) {
-  const modalOperation = useSelector(selectModalOperation);
+  const modalOperation = useSelector(selectOperation);
   const dispatch = useDispatch();
 
   // Create or Update based on modal operation
@@ -101,10 +102,12 @@ function ListModal(props) {
         <button
           className={styles.button}
           aria-label="Confirm Data Addition"
-          onClick={() => { 
+          onClick={(e) => { 
             dispatch(addOne(payload));
-            dispatch(toggleBoundFlag());
+            dispatch(updateOperation('save'));
+            // dispatch(toggleBoundChanged());
             dispatch(hideModalView());
+            // e.stopPropagation();
           }}
         >
           Save
@@ -112,10 +115,12 @@ function ListModal(props) {
         <button
           className={styles.button}
           aria-label="Confirm Data Update"
-          onClick={() => { 
+          onClick={(e) => { 
             dispatch(updateOne(payload));
-            dispatch(toggleBoundFlag());
+            dispatch(updateOperation('save'));
+            // dispatch(toggleBoundChanged());
             dispatch(hideModalView());
+            // e.stopPropagation();
           }}
         >
           Save
