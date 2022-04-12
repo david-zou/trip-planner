@@ -4,19 +4,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   addOne,
   updateOne,
+  selectOperation,
+  updateOperation,
+  selectSelected,
+  updateSelected,
 } from '../list/listSlice';
 
 import {
-  selectModalOperation,
   hideModalView,
 } from './listModalSlice'
 
 import styles from './ListModal.module.css';
 
 function ListModal(props) {
-  const modalOperation = useSelector(selectModalOperation);
-  console.log('what is modalOepration?', modalOperation)
-
+  const modalOperation = useSelector(selectOperation);
+  const selected = useSelector(selectSelected);
   const dispatch = useDispatch();
 
   // Create or Update based on modal operation
@@ -50,29 +52,36 @@ function ListModal(props) {
       <div>
         <label>Name:</label>
         <input
-          className={styles.textbox}
+          className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set name"
           value={nameInput}
-          onChange={(e) => setNameInput(e.target.value)}
+          onClick={(e) => e.stopPropagation()}
+          onChange={(e) =>
+            setNameInput(e.target.value)
+          }
         />
       </div>
 
       <div>
         <label>Latitude:</label>
         <input
-          className={styles.textbox}
+          className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set latitude"
           value={latInput}
-          onChange={(e) => setLatInput(e.target.value)}
+          onClick={(e) => e.stopPropagation()}
+          onChange={(e) =>
+            setLatInput(e.target.value)
+          }
         />
       </div>
 
       <div>
         <label>Longitude:</label>
         <input
-          className={styles.textbox}
+          className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set longitude"
           value={lngInput}
+          onClick={(e) => e.stopPropagation()}
           onChange={(e) => setLngInput(e.target.value)}
         />
       </div>
@@ -80,9 +89,10 @@ function ListModal(props) {
       <div>
         <label>Description:</label>
         <input
-          className={styles.textbox}
+          className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set description"
           value={descriptionInput}
+          onClick={(e) => e.stopPropagation()}
           onChange={(e) => setDescriptionInput(e.target.value)}
         />
       </div>
@@ -90,9 +100,10 @@ function ListModal(props) {
       <div>
         <label>Time Range:</label>
         <input
-          className={styles.textbox}
+          className={selected === props.id ? styles.textbox_selected : styles.textbox}
           aria-label="Set time range"
           value={timeRangeInput}
+          onClick={(e) => e.stopPropagation()}
           onChange={(e) => setTimeRangeInput(e.target.value)}
         />
       </div>
@@ -102,9 +113,11 @@ function ListModal(props) {
         <button
           className={styles.button}
           aria-label="Confirm Data Addition"
-          onClick={() => { 
-            dispatch(addOne(payload))
-            dispatch(hideModalView()) 
+          onClick={(e) => { 
+            dispatch(addOne(payload));
+            dispatch(updateOperation('save'));
+            dispatch(hideModalView());
+            e.stopPropagation();
           }}
         >
           Save
@@ -112,10 +125,12 @@ function ListModal(props) {
         <button
           className={styles.button}
           aria-label="Confirm Data Update"
-          onClick={() => { 
-            console.log('what is payload in Save?', payload)
+          onClick={(e) => {
             dispatch(updateOne(payload));
+            dispatch(updateOperation('save'));
+            dispatch(updateSelected(-1));
             dispatch(hideModalView());
+            e.stopPropagation();
           }}
         >
           Save

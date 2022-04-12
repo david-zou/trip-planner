@@ -1,81 +1,81 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import { List } from './features/list/List';
-import L from 'leaflet';
-import { Map, MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import {
+  selectList,
+  selectBounds,
+  selectSelected,
+  selectOperation,
+} from './features/list/listSlice';
+import { useSelector } from 'react-redux';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { latLngBounds } from 'leaflet';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
+import 'leaflet-defaulticon-compatibility';
 
-// const myMap = L.map('map', {
-//   center: [37.7749, -122.4194],
-//    zoom: 13
-//  })
-// import db from './firebase.js';
-// import { collection , onSnapshot } from 'firebase/firestore';
+const MapBounds = () => {
+  const map = useMap();
+  const bounds = latLngBounds(useSelector(selectBounds));
+  // console.log('bounds in MapBounds:', bounds);
+  map.fitBounds(bounds);
+  return null;
+}
+
+const FlyToCoords = ({ latLng }) => {
+  const map = useMap();
+  // console.log('flyToCoords called, what is latLng?', latLng)
+  map.flyTo(latLng, 14, { duration: 2 });
+  return null;
+}
 
 function App() {
+  // TODO: Change position and zoom to be within bounds of marker group(s)
+  // Ref(s): https://react-leaflet.js.org/docs/example-view-bounds/
+  // https://leafletjs.com/SlavaUkraini/reference.html#latlngbounds
+  const locationList = useSelector(selectList);
+  const selected = useSelector(selectSelected); // currently selected location
+  const selectOperationMode = useSelector(selectOperation) === 'select';
+  const saveOperationMode = useSelector(selectOperation) === 'save';
+  const deleteOperationMode = useSelector(selectOperation) === 'delete';
+  const initialized = useSelector(selectOperation) === 'init';
+  const locations = locationList.map((location) => {
+    return { position: [ location.latLng.lat, location.latLng.lng ],
+             name: location.name,
+             description: location.description,
+             timeRange: location.timeRange,
+           };
+  });
+  
   return (
     <div className="App">
       <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        {/* <Counter /> */}
         <div className="app-container">
-          <div>
+          <div id="list">
             <List />
           </div>
           <div id="map">
-            <MapContainer center={[51.505, -0.09]} zoom={13}>
+            <MapContainer>
+              { locations.length > 0 && (saveOperationMode || deleteOperationMode || initialized) && <MapBounds /> }
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <Marker position={[51.505, -0.09]}>
-                <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-              </Marker>
+              {
+                locations.map(function (location, index) {
+                  return (
+                    <Marker position={location.position} key={index} >
+                      <Popup>
+                        <strong>{location.name}</strong> <em>{'('+ location.position[0] + '°, ' + location.position[1] + '°)'}</em> <br/> {location.description} <br/> {location.timeRange}
+                      </Popup>
+                    </Marker>
+                  )
+                })
+              }
+              { selectOperationMode && <FlyToCoords latLng={locationList[selected].latLng} />}
             </MapContainer>
           </div>
         </div>
-        {/* <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span> */}
       </header>
     </div>
   );
