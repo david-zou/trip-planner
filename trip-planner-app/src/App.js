@@ -6,6 +6,7 @@ import {
   selectSelected,
   selectOperation,
 } from './features/list/listSlice';
+import LeafletControlGeocoder from "./features/geocoder/Geocoder";
 import { useSelector } from 'react-redux';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { latLngBounds } from 'leaflet';
@@ -73,6 +74,7 @@ function App() {
                 })
               }
               { selectOperationMode && <FlyToCoords latLng={locationList[selected].latLng} />}
+              <LeafletControlGeocoder />
             </MapContainer>
           </div>
         </div>
