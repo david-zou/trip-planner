@@ -7,6 +7,7 @@ import "leaflet-control-geocoder/dist/Control.Geocoder.js";
 import {
   addOne,
   updateOperation,
+  updateSelected,
   selectList
 } from '../list/listSlice';
 
@@ -43,19 +44,21 @@ export default function LeafletControlGeocoder() {
           // .addTo(map)
           .bindPopup(e.geocode.name)
           .openPopup();
-        map.fitBounds(e.geocode.bbox);
         const payload = {
           index: list.length,
           metadata: {
             name: e.geocode.name,
             latLng: { lat: latlng.lat,
                       lng: latlng.lng },
-            description: "N/A",
-            timeRange: "N/A",
+            description: "Insert Description Here",
+            timeRange: "Insert Time Range Here",
           }
         }
         dispatch(addOne(payload));
-        dispatch(updateOperation('save'));
+        dispatch(updateSelected(list.length));
+        dispatch(updateOperation('select'));
+        // map.fitBounds(e.geocode.bbox);
+        map.flyTo(latlng, 8, { duration: 1 });
       })
       .addTo(map);
   }, []);
