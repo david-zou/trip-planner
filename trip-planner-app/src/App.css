@@ -48,6 +48,12 @@
   overflow: scroll;
   padding-left: 0.25em;
   padding-right: 0.25em;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#list::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
 }
 
 #map {
